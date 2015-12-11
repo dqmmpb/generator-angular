@@ -21,7 +21,7 @@ var paths = {
   scripts: [yeoman.app + '/scripts/**/*.<% if (coffee) { %>coffee<% } else { %>js<% } %>'],
   styles: [yeoman.app + '/styles/**/*.<% if (sass) { %>scss<% } else { %>css<% } %>'],
   test: ['test/spec/**/*.<% if (coffee) { %>coffee<% } else { %>js<% } %>'],
-  karma: 'karma.conf.js',
+  karma: 'test/karma.conf.js',
   views: {
     main: yeoman.app + '/index.html',
     files: [yeoman.app + '/views/**/*.html']
@@ -134,7 +134,7 @@ gulp.task('serve:prod', function() {
 
 gulp.task('test', ['start:server:test'], function () {
   new Server({
-    configFile: paths.karma,
+    configFile: require('path').resolve(paths.karma),
     singleRun: true
   }).start();
 });
@@ -152,6 +152,7 @@ gulp.task('bower:test', function () {
   return gulp.src(paths.karma)
     .pipe(wiredep({
       directory: 'bower_components',
+      devDependencies: true,
       ignorePath: '../'
     }))
   .pipe(gulp.dest(yeoman.test));
