@@ -160,7 +160,9 @@ gulp.task('bower:test', function () {
 
 gulp.task('bower', ['bower:html', 'bower:test']);
 
-gulp.task('wiredep', ['bower']);
+gulp.task('wiredep', function(){
+  process.exit(0);
+});
 ///////////
 // Build //
 ///////////
